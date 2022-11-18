@@ -17,4 +17,8 @@ def create_app():
   def hello():
     return "It's homepage of MyBlog"
   
+  from . import db
+  db.init_app(app)
+
+
   return app
