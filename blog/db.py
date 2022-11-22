@@ -7,12 +7,12 @@ def get_db():
   """Sets connection to database if it hasn't been set yet"""
   if 'db' not in g:
     g.db = sqlite3.connect(
-      current_app.config['DATABASE'],
+      current_app.config["DATABASE"],
       detect_types=sqlite3.PARSE_DECLTYPES
     )
     g.db.row_factory = sqlite3.Row
 
-    return g.db 
+  return g.db 
 
 
 def close_db(e=None):
@@ -43,3 +43,4 @@ def init_app(app):
   app.teardown_appcontext(close_db)
   # Adds new command, that can be called with the 'flask'
   app.cli.add_command(init_db_command)
+

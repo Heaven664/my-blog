@@ -1,6 +1,5 @@
 import os
-from flask import Flask, session
-from . import db
+from flask import Flask, g
 
 def create_app():
   app = Flask(__name__, instance_relative_config=True)
@@ -16,7 +15,8 @@ def create_app():
   
   @app.route("/")
   def hello():
-    return f"Hello world!"
+    name = g.user['username']
+    return f"Hello {name}!"
   
   from . import db
   db.init_app(app)
