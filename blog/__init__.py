@@ -1,5 +1,6 @@
 import os
 from flask import Flask, g
+from .auth import login_required
 
 def create_app():
   app = Flask(__name__, instance_relative_config=True)
@@ -14,6 +15,7 @@ def create_app():
     pass
   
   @app.route("/")
+  @login_required
   def hello():
     name = g.user['username']
     return f"Hello {name}!"
