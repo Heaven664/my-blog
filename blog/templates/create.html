@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+  <form action="" method="post">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" autocomplete="off" autofocus required>
+    <label for="photo">Photo</label>
+    <input type="file" id="file" name="file">
+    <label for="text">Text</label>
+    <textarea name="text" id="text" cols="30" rows="10"></textarea>
+    <input type="submit" name="submit" value="Create a Post">
+  </form>
+{% endblock %}

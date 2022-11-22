@@ -14,7 +14,7 @@ def create_app():
   except OSError:
     pass
   
-  @app.route("/")
+  @app.route("/hello")
   @login_required
   def hello():
     name = g.user['username']
@@ -25,5 +25,9 @@ def create_app():
 
   from . import auth
   app.register_blueprint(auth.bp)
+
+  from . import blog
+  app.register_blueprint(blog.bp)
+  app.add_url_rule('/', endpoint='index')
 
   return app
