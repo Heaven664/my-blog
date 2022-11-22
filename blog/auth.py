@@ -5,7 +5,6 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 from blog.db import get_db
 
-
 bp = Blueprint('auth', __name__, url_prefix="/auth")
 
 
@@ -67,7 +66,6 @@ def login():
     flash(error)
 
   return render_template("login.html")
-
 
 @bp.before_app_request
 def load_logged_in_user():
