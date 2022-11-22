@@ -1,5 +1,6 @@
 import os
-from flask import Flask
+from flask import Flask, session
+from . import db
 
 def create_app():
   app = Flask(__name__, instance_relative_config=True)
@@ -15,12 +16,12 @@ def create_app():
   
   @app.route("/")
   def hello():
-    return "It's homepage of MyBlog"
+    return f"Hello world!"
   
   from . import db
   db.init_app(app)
 
   from . import auth
   app.register_blueprint(auth.bp)
-  
+
   return app
