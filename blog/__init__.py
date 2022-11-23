@@ -1,5 +1,5 @@
 import os
-from flask import Flask, g, flash, request, redirect, url_for, render_template
+from flask import Flask, g, flash, request, redirect, url_for, render_template, session
 from .auth import login_required
 from werkzeug.utils import secure_filename
 
@@ -46,11 +46,42 @@ def create_app():
   def create():
     if request.method == "POST":
       file = request.files['file']
+      title = request.form['title']
+      text = request.form['text']
+      error = None
+      base = db.get_db()
+
+      if not title:
+        error = "Please provide title!"
+      
+      if not text:
+        error = "Please provide text!"
       if file and allowed_file(file.filename):
         global counter
         counter += 1
         filename = str(counter) + secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        path = os.path.join(app.instance_path, f"{filename}")
+        if error is None:
+          base.execute(
+          "INSERT INTO post (author_id, title, body, image_path) VALUES (?, ?, ?, ?)",
+          (session['user_id'], title, text, path),
+        )
+          base.commit() 
+          return redirect(url_for('hello'))
+      
+
+      elif error is None:
+        base.execute(
+        "INSERT INTO post (author_id, title, body) VALUES (?, ?, ?)",
+        (session['user_id'], title, text),
+      )
+        base.commit()
+        return redirect(url_for('hello'))
+
+      flash(error)
+
+
     return render_template('create.html')
   
 
