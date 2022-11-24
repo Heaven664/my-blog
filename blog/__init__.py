@@ -68,7 +68,7 @@ def create_app():
           (session['user_id'], title, text, path),
         )
           base.commit() 
-          return redirect(url_for('hello'))
+          return redirect(url_for('index'))
       
 
       elif error is None:
@@ -77,7 +77,7 @@ def create_app():
         (session['user_id'], title, text),
       )
         base.commit()
-        return redirect(url_for('hello'))
+        return redirect(url_for('index'))
 
       flash(error)
 
