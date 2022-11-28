@@ -1,5 +1,6 @@
 venv/
 .venv/
+static/images/
 
 *.pyc
 __pycache__/

@@ -9,7 +9,7 @@ def create_app():
   
   app = Flask(__name__, instance_relative_config=True)
 
-  UPLOAD_FOLDER = os.path.join(app.static_folder)
+  UPLOAD_FOLDER = os.path.join(app.static_folder, 'images/')
 
   app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
