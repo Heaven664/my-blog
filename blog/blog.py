@@ -13,10 +13,16 @@ bp = Blueprint('blog', __name__)
 
 @bp.route('/')
 def index():
-  return render_template('index.html')
+  db = get_db()
+
+  posts = db.execute(
+    "SELECT * FROM post ORDER BY created"
+  ).fetchall()
+  db.commit()
+  return render_template("index.html", posts=posts)
 
 
 def allowed_file(filename):
-    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+    ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

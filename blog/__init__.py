@@ -9,7 +9,7 @@ def create_app():
   
   app = Flask(__name__, instance_relative_config=True)
 
-  UPLOAD_FOLDER = os.path.join(app.instance_path, 'images/')
+  UPLOAD_FOLDER = os.path.join(app.static_folder)
 
   app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -56,12 +56,13 @@ def create_app():
       
       if not text:
         error = "Please provide text!"
+
       if file and allowed_file(file.filename):
         global counter
         counter += 1
         filename = str(counter) + secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        path = os.path.join(app.instance_path, f"{filename}")
+        path = filename
         if error is None:
           base.execute(
           "INSERT INTO post (author_id, title, body, image_path) VALUES (?, ?, ?, ?)",
@@ -69,9 +70,11 @@ def create_app():
         )
           base.commit() 
           return redirect(url_for('index'))
+      else:
+        error = 'Unsupported file extension!'
       
 
-      elif error is None:
+      if error is None:
         base.execute(
         "INSERT INTO post (author_id, title, body) VALUES (?, ?, ?)",
         (session['user_id'], title, text),

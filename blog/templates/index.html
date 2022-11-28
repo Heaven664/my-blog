@@ -3,5 +3,11 @@
 {% block title %}MyBlog{% endblock %}
 
 {% block content %}
-  This is a main page of Myblog!
+  {% for post in posts %}
+  <div>
+    <h1>{{ post.title }}</h1>
+    <h3>{{ post.body }}</h3>
+    <img src="{{ url_for('static', filename= post.image_path )}}" alt="">
+  </div>
+  {% endfor %}
 {% endblock %}
