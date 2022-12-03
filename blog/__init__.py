@@ -60,7 +60,8 @@ def create_app():
       if file and allowed_file(file.filename):
         global counter
         counter += 1
-        filename = str(counter) + secure_filename(file.filename)
+        filename = secure_filename(file.filename)
+        filename = str(counter) + '.' + filename.rsplit(".", 1)[1].lower()
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         path = filename
         if error is None:
