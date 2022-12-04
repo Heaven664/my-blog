@@ -87,6 +87,21 @@ def create_app():
 
 
     return render_template('create.html')
-  
 
+
+  from .blog import get_post
+  from .db import get_db
+
+  @app.route("/<int:id>/delete", methods = ["POST"])
+  @login_required
+  def delete(id):
+    get_post(id)
+    db = get_db()
+    image = db.execute("SELECT image_path FROM post WHERE id = ?", (id,)).fetchone()[0]
+    path = os.path.join(UPLOAD_FOLDER, str(image))
+    os.remove(path)
+    db.execute('DELETE FROM post WHERE id = ?', (id,))
+    db.commit()
+    return redirect(url_for('index'))
+  
   return app
