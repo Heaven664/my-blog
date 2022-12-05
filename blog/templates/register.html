@@ -3,11 +3,22 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-  <form action="" method="post">
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" autocomplete="off" autofocus required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Register">
-  </form>
+<div class="login">
+  <div class="cent">
+    <form action="" method="post">
+      <div class="login-item">
+        <label class="login-lable" for="username">Username</label>
+        <input class="login-input" type="text" name="username" id="username" autocomplete="off" autofocus required>  
+      </div>
+      <div class="login-item">
+        <label class="login-lable" for="password">Password</label>
+        <input class="login-input" type="password" name="password" id="password" required>  
+      </div>
+      <div class="login-button-container">
+        <input class="login-button" type="submit" value="Register">
+      </div>
+    </form>
+  </div>
+</div>
+
 {% endblock %}
