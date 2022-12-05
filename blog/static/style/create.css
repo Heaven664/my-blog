@@ -1,0 +1,36 @@
+.create-label {
+ display: block;
+}
+
+.input-label {
+  display: block;
+}
+
+input[type='file'] {
+  color: rgba(0, 0, 0, 0)
+}
+
+#title {
+  width: 70%;
+}
+
+#text {
+  margin-top: 10px;
+  width: 100%;
+  resize: none;
+}
+
+#file {
+  margin-top: 20px;
+  margin-left: 170px;
+}
+
+#create {
+  margin-left: 20px;
+}
+
+.title-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}

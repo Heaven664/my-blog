@@ -29,50 +29,9 @@ body{
   text-decoration: none;
 }
 
-.login {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 200px;
-}
-
-.cent {
-  display: flex;
-}
-
-.login-item {
-  display: block;
-  margin-bottom: 25px;
-}
-
-.login-button {
-  padding: 10px 15px;
-  background-color: black;
-  border-radius: 8px;
-  border: 1px solid black;
-  color: white;
-  cursor: pointer;
-}
-
-.login-button:hover {
-  background-color: white;
-  border: solid 1px black;
-  color: black;
-  transition: 0.25s;
-}
-
-.login-button-container {
+.page-name {
+  font-weight: 200;
   text-align: center;
+  margin-top: 80px;
+  margin-bottom: -170px;
 }
-
-
-.login-lable {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.login-input {
-  width: 150px;
-  height: 20px;
-}
-
