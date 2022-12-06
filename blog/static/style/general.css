@@ -35,3 +35,8 @@ body{
   margin-top: 100px;
   margin-bottom: -170px;
 }
+
+#logo {
+  width: 55px;
+  margin-left: 10px;
+}

@@ -15,11 +15,13 @@
 <body>
   <div class="navbar">
     {% if g.user %}
+    <a href="{{ url_for("index") }}"><img id="logo" src="{{ url_for('static', filename='logo.png') }}"" alt="logo"></a>
     <ul class="nav-list">
       <li><a class="nav-items" href="{{ url_for("create") }}">Create Post</a></li>
       <li><a class="nav-items" href="{{ url_for("auth.logout") }}">Log Out</a></li>
     </ul>
     {% else %}
+    <a href="{{ url_for("index") }}"><img id="logo" src="{{ url_for('static', filename='logo.png') }}"" alt="logo"></a>
     <ul class="nav-list">
       <li><a class="nav-items" href="{{ url_for("auth.register") }}">Register</a></li>
       <li><a class="nav-items" href="{{ url_for("auth.login") }}">Log In</a></li>
