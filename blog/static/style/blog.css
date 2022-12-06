@@ -1,0 +1,49 @@
+.main-blog{
+  display: flex;
+  justify-content: center;
+}
+
+.posts-log {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  width: 1000px;
+  margin-top: -20px;
+}
+
+.post-title-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.post-title {
+  font-weight: 200;
+  font-size: 30px;
+}
+
+.post-image-container {
+  background-color: lightcoral;
+  display: flex;
+  justify-content: center;
+}
+
+.post-image {
+}
+
+
+.post-body-container {
+  margin-left: 20px;
+  margin-right: 10px;
+
+}
+
+.post-body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 200;
+}
+
+.post-delete-button-container {
+  background-color: violet;
+}
