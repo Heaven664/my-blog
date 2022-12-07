@@ -2,6 +2,7 @@ import os
 from flask import Flask, g, flash, request, redirect, url_for, render_template, session
 from .auth import login_required
 from werkzeug.utils import secure_filename
+from PIL import Image
 
 counter = 0
 
@@ -50,6 +51,16 @@ def create_app():
       text = request.form['text']
       error = None
       base = db.get_db()
+      id = session['user_id']
+
+      author = base.execute(
+        "SELECT username FROM user WHERE id = ?", (id,)
+      ).fetchone()[0]
+
+      author = str(author)
+
+      if not author:
+        error = "Can't recognize user"
 
       if not title:
         error = "Please provide title!"
@@ -63,25 +74,35 @@ def create_app():
         filename = secure_filename(file.filename)
         filename = str(counter) + '.' + filename.rsplit(".", 1)[1].lower()
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        path = filename
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        img = Image.open(filepath)
+        width = img.width
+        heigh = img.height
+
+        if (width / heigh) > 0.5 and (width / heigh) < 3:
+          path = filename
+          if error is None:
+            base.execute(
+            "INSERT INTO post (author_id, title, body, image_path, author_name) VALUES (?, ?, ?, ?, ?)",
+            (session['user_id'], title, text, path, author),
+          )
+            base.commit() 
+            return redirect(url_for('index'))
+        else:
+          os.remove(filepath)
+          error = "Image dimensions are not allowed"
+
+      elif not file:
         if error is None:
           base.execute(
-          "INSERT INTO post (author_id, title, body, image_path) VALUES (?, ?, ?, ?)",
-          (session['user_id'], title, text, path),
+          "INSERT INTO post (author_id, title, body, author_name) VALUES (?, ?, ?, ?)",
+          (session['user_id'], title, text, author),
         )
-          base.commit() 
+          base.commit()
           return redirect(url_for('index'))
+
       else:
         error = 'Unsupported file extension!'
-      
-
-      if error is None:
-        base.execute(
-        "INSERT INTO post (author_id, title, body) VALUES (?, ?, ?)",
-        (session['user_id'], title, text),
-      )
-        base.commit()
-        return redirect(url_for('index'))
 
       flash(error)
 
@@ -98,8 +119,11 @@ def create_app():
     get_post(id)
     db = get_db()
     image = db.execute("SELECT image_path FROM post WHERE id = ?", (id,)).fetchone()[0]
-    path = os.path.join(UPLOAD_FOLDER, str(image))
-    os.remove(path)
+    
+    if image:
+      path = os.path.join(UPLOAD_FOLDER, str(image))
+      os.remove(path)
+
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('index'))

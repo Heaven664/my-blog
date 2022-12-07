@@ -16,7 +16,7 @@ def index():
   db = get_db()
 
   posts = db.execute(
-    "SELECT * FROM post ORDER BY created"
+    "SELECT * FROM post ORDER BY created DESC"
   ).fetchall()
   db.commit()
   return render_template("index.html", posts=posts)
