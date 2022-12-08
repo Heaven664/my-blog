@@ -119,7 +119,7 @@ def create_app():
     get_post(id)
     db = get_db()
     image = db.execute("SELECT image_path FROM post WHERE id = ?", (id,)).fetchone()[0]
-    
+
     if image:
       path = os.path.join(UPLOAD_FOLDER, str(image))
       os.remove(path)

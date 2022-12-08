@@ -4,13 +4,12 @@
 }
 
 .posts-log {
+  margin-top: -20px;
   display: flex;
-  margin-top: 160px;
   justify-content: center;
   flex-direction: column;
   background-color: white;
   width: 1000px;
-  margin-top: -20px;
 }
 
 .post-title-container {
@@ -30,7 +29,8 @@
 }
 
 .post-image {
-  
+  max-width: 80%;
+  max-height: 600px;
 }
 
 
@@ -76,5 +76,6 @@
 
 .post {
   padding-bottom: 30px;
+  padding-top: 20px;
   border-bottom: 1px solid black;
 }
