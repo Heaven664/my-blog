@@ -10,6 +10,7 @@ def create_app():
   
   app = Flask(__name__, instance_relative_config=True)
 
+  # Configuring upload folder
   UPLOAD_FOLDER = os.path.join(app.static_folder, 'images/')
 
   app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -68,10 +69,13 @@ def create_app():
       if not text:
         error = "Please provide text!"
 
+      # If file exists and extension is allowed
       if file and allowed_file(file.filename):
         global counter
         counter += 1
         filename = secure_filename(file.filename)
+      
+        # Generates a unique name for each image
         filename = str(counter) + '.' + filename.rsplit(".", 1)[1].lower()
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -79,8 +83,11 @@ def create_app():
         width = img.width
         heigh = img.height
 
+        # Checks if image's dimensions are allowed
         if (width / heigh) > 0.5 and (width / heigh) < 3:
           path = filename
+
+          # Inserts data of a post to the database
           if error is None:
             base.execute(
             "INSERT INTO post (author_id, title, body, image_path, author_name) VALUES (?, ?, ?, ?, ?)",
@@ -88,10 +95,13 @@ def create_app():
           )
             base.commit() 
             return redirect(url_for('index'))
+
+        # If dimensions are not allowed
         else:
           os.remove(filepath)
           error = "Image dimensions are not allowed"
 
+      # If users creates a post without an image
       elif not file:
         if error is None:
           base.execute(
@@ -101,6 +111,7 @@ def create_app():
           base.commit()
           return redirect(url_for('index'))
 
+      # If file extension is not supported
       else:
         error = 'Unsupported file extension!'
 

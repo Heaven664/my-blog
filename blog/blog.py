@@ -23,12 +23,16 @@ def index():
 
 
 def allowed_file(filename):
-    ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+  """ Checks if file extension is allowed"""
+  
+  ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+  return '.' in filename and \
+          filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
           
 
 def get_post(id, check_author=True):
+  """Gets info about each post from database"""
+
   post = get_db().execute(" SELECT p.id, title, body, created, author_id, username \
                             FROM post p JOIN user u ON p.author_id = u.id \
                             WHERE p.id = ?", (id,)).fetchone()

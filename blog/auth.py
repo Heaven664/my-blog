@@ -30,6 +30,7 @@ def register():
         )
         db.commit()
 
+      # If username already exists
       except db.IntegrityError:
         error = f"User {username} is already exists!"
 
@@ -53,8 +54,11 @@ def login():
       "SELECT * FROM user WHERE username = (?)", (username,)
     ).fetchone()
 
+    # If username doesn't exist in database
     if user is None:
       error = "Incorrect username!"
+
+    # If password is incorrect
     elif not check_password_hash(user['password'], password):
       error = "Incorrect password!"
     
@@ -69,6 +73,7 @@ def login():
 
 @bp.before_app_request
 def load_logged_in_user():
+  """ Gets info about user before each request """
   user_id = session.get('user_id')
 
   if user_id is None:
@@ -86,6 +91,7 @@ def logout():
 
 
 def login_required(view):
+  """ Allows to view the page only if user is logged in """
   @functools.wraps(view)
   def wrapped_view(**kwargs):
     if g.user is None:
