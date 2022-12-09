@@ -34,7 +34,9 @@
     {% endif %}
   </div>
   {% for error in get_flashed_messages() %}
-    <div>{{ error }}</div>
+    <div class="error-pops">
+      {{ error }}
+    </div>
   {% endfor %}
   {% block content %}
   {% endblock %}
