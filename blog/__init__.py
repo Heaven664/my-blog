@@ -81,10 +81,10 @@ def create_app():
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         img = Image.open(filepath)
         width = img.width
-        heigh = img.height
+        height = img.height
 
         # Checks if image's dimensions are allowed
-        if (width / heigh) > 0.5 and (width / heigh) < 3:
+        if (width / height) > 0.5 and (width / height) < 3:
           path = filename
 
           # Inserts data of a post to the database
