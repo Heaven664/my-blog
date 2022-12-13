@@ -47,3 +47,14 @@ This feature will improve user experience
 
 ### **_More file types_**
 It would be a good feature if users can upload not only images but different file types as well, such as video files or code
+<br/><br/>
+
+# **_Struggles/Issues_**
+
+### **_Image storage_**
+For this project I was storing posts' images in **static folder** in order to retrieve them easily in templates. The path to each image was stored in my database. However I think this method is unnecessary complicated. Real web applications use different methods to store the images, but since this is my firs project and I am not familiar with those services yet I decided to store images in my **static folder**
+
+
+### **_Image formatting_**
+Some images with uncommon dimensions may cause unpretty view of a post. So i decided to implement some restrictions to uploaded images.  
+Also images with different dimensions are rendered differently in the post, however this algorithm is very simple and should be improved in order to allow users upload files with any dimensions and render each one uniquely, depended in their dimensions
